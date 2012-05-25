@@ -11,7 +11,7 @@ from pyramid.paster import (
 
 from ..models import (
     DBSession,
-    MyModel,
+    Quote,
     Base,
     )
 
@@ -31,5 +31,5 @@ def main(argv=sys.argv):
     DBSession.configure(bind=engine)
     Base.metadata.create_all(engine)
     with transaction.manager:
-        model = MyModel(name='one', value=1)
+        model = Quote('i like turtles!', 10001)
         DBSession.add(model)
