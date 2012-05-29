@@ -1,20 +1,51 @@
 from pyramid.response import Response
 from pyramid.view import view_config
+from pyramid.httpexceptions import HTTPFound
+
+from formencode import Schema, validators
+
+from pyramid_simpleform import Form
+from pyramid_simpleform.renderers import FormRenderer
 
 from sqlalchemy.exc import DBAPIError
 
 from .models import (
     DBSession,
-    MyModel,
+    Quote,
     )
 
 @view_config(route_name='home', renderer='templates/mytemplate.pt')
 def my_view(request):
     try:
-        one = DBSession.query(MyModel).filter(MyModel.name=='one').first()
+        one = DBSession.query(Quote).filter(Quote.quote=='one').first()
     except DBAPIError:
         return Response(conn_err_msg, content_type='text/plain', status_int=500)
     return {'one':one, 'project':'quotes'}
+    
+class QuoteSchema(Schema):
+    filter_extra_fields = True
+    allow_extra_fields = True
+    
+    quote = validators.MinLength(5, not_empty=True)
+    votes = validators.Int(not_empty=True)
+
+@view_config(route_name='add', renderer='templates/add.pt')
+def add(request):
+    form = Form(request,
+                defaults={},
+                schema=QuoteSchema())
+    
+    if form.validate():
+        quote = form.bind(Quote())
+        DBSession.add(quote)
+        DBSession.flush()
+        return HTTPFound(location="/view/" + str(quote.id))
+
+    return dict(renderer=FormRenderer(form), test=form.errors)
+    
+@view_config(route_name='view', renderer='templates/view.pt')
+def view(request):
+    return {'id': request.matchdict['id']}
 
 conn_err_msg = """\
 Pyramid is having a problem using your SQL database.  The problem

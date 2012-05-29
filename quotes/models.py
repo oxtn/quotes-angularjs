@@ -18,11 +18,10 @@ Base = declarative_base()
 
 class Quote(Base):
     __tablename__ = 'quote'
-    id = Column(Integer, primary_key=True)
+    id = Column(Integer, primary_key=True, autoincrement=True)
     quote = Column(Text)
     votes = Column(Integer)
 
-    def __init__(self, quote, votes):
+    def __init__(self, quote="", votes=""):
         self.quote = quote
         self.votes = votes
-

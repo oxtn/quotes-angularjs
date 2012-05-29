@@ -14,6 +14,8 @@ requires = [
     'pyramid_debugtoolbar',
     'zope.sqlalchemy',
     'waitress',
+    'pyramid_simpleform',
+    'pyramid_beaker',
     ]
 
 setup(name='quotes',
