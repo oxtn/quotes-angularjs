@@ -1,6 +1,6 @@
 from pyramid.response import Response
 from pyramid.view import view_config
-from pyramid.httpexceptions import HTTPFound
+from pyramid.httpexceptions import ( HTTPFound, HTTPNotFound )
 
 from formencode import Schema, validators
 
@@ -39,13 +39,19 @@ def add(request):
         quote = form.bind(Quote())
         DBSession.add(quote)
         DBSession.flush()
-        return HTTPFound(location="/view/" + str(quote.id))
+        return HTTPFound(location=request.route_url('view',id=quote.id))
 
     return dict(renderer=FormRenderer(form), test=form.errors)
     
 @view_config(route_name='view', renderer='templates/view.pt')
 def view(request):
-    return {'id': request.matchdict['id']}
+    id = request.matchdict['id']
+    
+    quote = DBSession.query(Quote).filter_by(id=id).first()
+    if not quote:
+        return HTTPNotFound('Beep!')
+        
+    return dict(quote=quote)
 
 conn_err_msg = """\
 Pyramid is having a problem using your SQL database.  The problem
