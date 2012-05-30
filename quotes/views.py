@@ -14,7 +14,7 @@ from .models import (
     Quote,
     )
 
-@view_config(route_name='home', renderer='templates/mytemplate.pt')
+@view_config(route_name='home', renderer='templates/home.pt')
 def my_view(request):
     try:
         one = DBSession.query(Quote).filter(Quote.quote=='one').first()
@@ -27,7 +27,6 @@ class QuoteSchema(Schema):
     allow_extra_fields = True
     
     quote = validators.MinLength(5, not_empty=True)
-    votes = validators.Int(not_empty=True)
 
 @view_config(route_name='add', renderer='templates/add.pt')
 def add(request):
@@ -37,6 +36,7 @@ def add(request):
     
     if form.validate():
         quote = form.bind(Quote())
+        quote.votes = 0
         DBSession.add(quote)
         DBSession.flush()
         return HTTPFound(location=request.route_url('view',id=quote.id))
