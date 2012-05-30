@@ -16,6 +16,7 @@ requires = [
     'waitress',
     'pyramid_simpleform',
     'pyramid_beaker',
+    'pyramid_jinja2',
     ]
 
 setup(name='quotes',

@@ -14,7 +14,7 @@ from .models import (
     Quote,
     )
 
-@view_config(route_name='home', renderer='templates/home.pt')
+@view_config(route_name='home', renderer='home.jinja2')
 def my_view(request):
     try:
         one = DBSession.query(Quote).filter(Quote.quote=='one').first()
@@ -28,7 +28,7 @@ class QuoteSchema(Schema):
     
     quote = validators.MinLength(5, not_empty=True)
 
-@view_config(route_name='add', renderer='templates/add.pt')
+@view_config(route_name='add', renderer='add.jinja2')
 def add(request):
     form = Form(request,
                 defaults={},
@@ -43,7 +43,7 @@ def add(request):
 
     return dict(renderer=FormRenderer(form), test=form.errors)
     
-@view_config(route_name='view', renderer='templates/view.pt')
+@view_config(route_name='view', renderer='view.jinja2')
 def view(request):
     id = request.matchdict['id']
     
