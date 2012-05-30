@@ -50,18 +50,18 @@
 		<form class="form-horizontal" method="post">
 				<fieldset>
 				  <legend>Add a New Quote</legend>
-				  <div>
-				    ${renderer.errorlist()}
-				  </div>
-				  <div class="control-group">
+				  <div class="control-group${' error' if renderer.is_error('quote') else''}">
 					<label class="control-label" for="quote">Quote</label>
 					<div class="controls">
 					    ${renderer.textarea("quote")}
+					    <span tal:condition="renderer.is_error('quote')">
+                            <span class="help-inline">${', '.join(renderer.errors_for('quote'))}</span>
+                        </span>
 					</div>
 				  </div>
 				  <div class="control-group">
 					<div class="controls">
-					    ${renderer.submit("submit","Add!")}
+					    ${renderer.submit("submit","Add!",class_='btn btn-primary')}
 					</div>
 				  </div>
 				</fieldset>
