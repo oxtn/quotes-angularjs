@@ -13,6 +13,7 @@ def main(global_config, **settings):
     config.add_route('home', '/')
     config.add_route('add','/add')
     config.add_route('view','/view/{id}')
+    config.add_route('vote','/vote/{id}/{direction}')
     config.scan()
     return config.make_wsgi_app()
 

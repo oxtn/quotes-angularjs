@@ -52,6 +52,21 @@ def view(request):
         return HTTPNotFound('Beep!')
         
     return dict(quote=quote)
+@view_config(route_name='vote')
+def vote_post(request):
+    id = request.matchdict['id']
+    direction = request.matchdict['direction']
+    
+    quote = DBSession.query(Quote).filter_by(id=id).first()
+    if not quote:
+        return HTTPNotFound('Beep!')
+        
+    if direction == 'up':
+        quote.votes += 1
+    elif direction == 'down':
+        quote.votes -= 1
+        
+    return HTTPFound(location=request.route_url('view',id=quote.id))
 
 conn_err_msg = """\
 Pyramid is having a problem using your SQL database.  The problem
