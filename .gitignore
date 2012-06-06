@@ -3,7 +3,10 @@
 # Packages
 *.egg
 *.egg-info
+<<<<<<< HEAD
 *.pyc
+=======
+>>>>>>> 08438154ab5664d485ec3d92cc5edc6778c73dd9
 dist
 build
 eggs
