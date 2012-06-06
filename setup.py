@@ -19,9 +19,9 @@ requires = [
     'pyramid_jinja2',
     ]
 
-setup(name='quotes',
+setup(name='quotes_angularjs',
       version='0.0',
-      description='quotes',
+      description='quotes_angularjs',
       long_description=README + '\n\n' +  CHANGES,
       classifiers=[
         "Programming Language :: Python",
@@ -36,13 +36,13 @@ setup(name='quotes',
       packages=find_packages(),
       include_package_data=True,
       zip_safe=False,
-      test_suite='quotes',
+      test_suite='quotes_angularjs',
       install_requires=requires,
       entry_points="""\
       [paste.app_factory]
-      main = quotes:main
+      main = quotes_angularjs:main
       [console_scripts]
-      initialize_quotes_db = quotes.scripts.initializedb:main
+      initialize_quotes_angularjs_db = quotes_angularjs.scripts.initializedb:main
       """,
       )
 
