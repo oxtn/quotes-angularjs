@@ -1,7 +1,8 @@
 {% extends "master.jinja2" %}
 {% block title %}Add{% endblock %}
+{% block controller %}QuotesCtrl{% endblock %}
 {% block content %}
-<form class="form-horizontal" method="post">
+<form class="form-horizontal" method="post" action="{{request.current_route_path()}}">
 	<fieldset>
 	  <legend>Add a New Quote</legend>
 	  <div class="control-group{{' error' if renderer.is_error('quote') }}">

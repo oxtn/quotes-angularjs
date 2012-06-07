@@ -1,7 +1,6 @@
 from pyramid.response import Response
 from pyramid.view import view_config
 from pyramid.httpexceptions import ( HTTPFound, HTTPNotFound )
-
 from formencode import Schema, validators
 
 from pyramid_simpleform import Form
@@ -52,6 +51,18 @@ def view(request):
         return HTTPNotFound('Beep!')
         
     return dict(quote=quote)
+    
+@view_config(route_name='list', renderer='list.jinja2')
+def list(request):
+    quotes = DBSession.query(Quote)
+    return dict(quotes=quotes)
+
+@view_config(route_name='list', renderer='json', xhr=True)
+def list_json(request):
+    quotes = DBSession.query(Quote).all()
+    return [dict(quote=quote.quote) for quote in quotes]
+
+
 @view_config(route_name='vote')
 def vote_post(request):
     id = request.matchdict['id']

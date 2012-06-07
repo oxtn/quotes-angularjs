@@ -1,0 +1,12 @@
+{% extends "master.jinja2" %}
+{% block title %}List{% endblock %}
+{% block controller %}QuotesCtrl{% endblock %}
+{% block content %}
+<h2><[quotes.length]> quotes</h2>
+<ul>
+    <li ng-repeat="quote in quotes">
+        <[quote.quote]>
+    </li>
+    <hr />
+</ul>
+{% endblock %}
