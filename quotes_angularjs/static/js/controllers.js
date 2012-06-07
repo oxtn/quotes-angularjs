@@ -3,9 +3,8 @@ var ang = angular.module('quotes', [], function ($interpolateProvider) {
     $interpolateProvider.endSymbol(']>');
 });
 
-ang.controller('QuotesCtrl', ['$scope', function($scope) {
-    $scope.quotes = [
-        {"quote": "Test 1"},
-        {"quote": "test 2"}
-    ];
+ang.controller('QuotesCtrl', ['$scope', '$http', function($scope, $http) {
+    $http.get('list').success(function(data) {
+        $scope.quotes = data;
+    });
 }]);
