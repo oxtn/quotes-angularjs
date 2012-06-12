@@ -2,12 +2,6 @@
   display: inline;
 }
 
-
-
-
-
-
-
-
-
-
+.ng-cloak {
+    display: none;
+}
