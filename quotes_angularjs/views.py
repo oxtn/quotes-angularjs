@@ -60,7 +60,8 @@ def list(request):
 @view_config(route_name='list', renderer='json', xhr=True)
 def list_json(request):
     quotes = DBSession.query(Quote).all()
-    return [dict(quote=quote.quote) for quote in quotes]
+    return [dict(view_url=request.route_url('view', id=quote.id),
+                 quote=quote.quote) for quote in quotes]
 
 
 @view_config(route_name='vote')
