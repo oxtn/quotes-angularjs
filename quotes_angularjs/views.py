@@ -51,6 +51,15 @@ def view(request):
         
     return dict(quote=quote)
     
+@view_config(route_name='view_json', renderer='json')
+def view_json(request):
+    id = request.matchdict['id']
+    
+    quote = DBSession.query(Quote).filter_by(id=id).first()
+    if not quote:
+        return HTTPNotFound('Beep!')
+    return dict(votes=quote.votes, quote=quote.quote)
+    
 @view_config(route_name='list', renderer='list.jinja2')
 def list(request):
     quotes = DBSession.query(Quote)
@@ -61,6 +70,11 @@ def list_json(request):
     quotes = DBSession.query(Quote).all()
     return [dict(view_url=request.route_url('view', id=quote.id),
                  quote=quote.quote) for quote in quotes]
+
+@view_config(route_name='template', renderer='index.jinja2')
+def template(request):
+    return {}
+    
 
 
 @view_config(route_name='vote')

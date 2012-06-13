@@ -1,8 +1,9 @@
 {% extends "master.jinja2" %}
+{% block controller %}QuoteViewCtrl{% endblock %}
 {% block title %}View{% endblock %}
 {% block content %}
 <div>	
-	<strong>{{'+' if quote.votes >= 0 else '-'}}{{ quote.votes }}</strong>
+	<strong>{{'+' if quote.votes >= 0 else '-'}}<[ data.votes ]></strong>
     <form method="post" class="form-inline inline" action="{{ request.route_url('vote', id=quote.id, direction='up') }}">
  		<input type="submit" value="+" class="btn btn-success btn-mini" /> /
     </form>
