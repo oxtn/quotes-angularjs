@@ -2,7 +2,6 @@ from pyramid.response import Response
 from pyramid.view import view_config
 from pyramid.httpexceptions import ( HTTPFound, HTTPNotFound )
 from formencode import Schema, validators
-from .infra import allowed_extension
 from pyramid_simpleform import Form
 from pyramid_simpleform.renderers import FormRenderer
 
