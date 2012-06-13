@@ -2,7 +2,7 @@ from pyramid.response import Response
 from pyramid.view import view_config
 from pyramid.httpexceptions import ( HTTPFound, HTTPNotFound )
 from formencode import Schema, validators
-
+from .infra import allowed_extension
 from pyramid_simpleform import Form
 from pyramid_simpleform.renderers import FormRenderer
 
@@ -57,7 +57,7 @@ def list(request):
     quotes = DBSession.query(Quote)
     return dict(quotes=quotes)
 
-@view_config(route_name='list', renderer='json', xhr=True)
+@view_config(route_name='list_json', renderer='json')
 def list_json(request):
     quotes = DBSession.query(Quote).all()
     return [dict(view_url=request.route_url('view', id=quote.id),
