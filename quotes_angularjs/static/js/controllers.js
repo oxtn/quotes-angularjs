@@ -5,10 +5,10 @@ angular.module('quotes', [], ['$routeProvider','$interpolateProvider', '$locatio
     var base_url = '/quotes-ang';    
 
     $routeProvider.
-/*        when(base_url+'/view/:id', { 
-            templateUrl: base_url + '/view',
+        when(base_url+'/view/:id', { 
+            templateUrl: base_url + '/Zview.html',
             controller: QuoteViewCtrl
-       }).*/when(base_url+'/list', {
+       }).when(base_url+'/list', {
             templateUrl: base_url + '/ZOMG.html',
             controller: QuoteListCtrl
        });
@@ -18,10 +18,10 @@ angular.module('quotes', [], ['$routeProvider','$interpolateProvider', '$locatio
 
 function QuoteListCtrl($scope, $http) {
     $scope.loaded = false;
-/*    $http.get('list.json').success(function(data) {
-        $scope.quotes = data;*/
+    $http.get('list.json').success(function(data) {
+        $scope.quotes = data;
         $scope.loaded = true;
-//    });
+    });
 };
 QuoteListCtrl.$inject = ['$scope','$http'];
 
