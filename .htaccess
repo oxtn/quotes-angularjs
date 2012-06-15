@@ -3,7 +3,7 @@ RewriteEngine On
 
 RewriteCond %{REQUEST_URI} !(static|\.css|\.json|\.js|\.css|\.ico|\.html|\.tmpl)$
 RewriteCond %{REQUEST_FILENAME} !-f
-RewriteRule ^(.*)$ dispatch.fcgi/list [QSA,L]
+RewriteRule ^(.*)$ dispatch.fcgi/ [QSA,L]
 
 RewriteCond %{REQUEST_URI} (static|\.css|\.json|\.js|\.css|\.ico|\.html|\.tmpl)$
 RewriteCond %{REQUEST_FILENAME} !-f

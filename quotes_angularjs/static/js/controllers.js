@@ -5,27 +5,39 @@ angular.module('quotes', [], ['$routeProvider','$interpolateProvider', '$locatio
     var base_url = '/quotes-ang';    
 
     $routeProvider.
-        when(base_url+'/view/:id.json', { 
+        when(base_url+'/view/:id', { 
             templateUrl: base_url + '/view.tmpl',
             controller: QuoteViewCtrl
        }).when(base_url+'/list', {
-            templateUrl: base_url + '/ZOMG.html',
+            templateUrl: base_url + '/list.tmpl',
             controller: QuoteListCtrl
+       }).when(base_url+'/add', {
+            templateUrl: base_url + '/add.tmpl',
+            controller: QuoteAddCtrl
        });
               
        $locationProvider.html5Mode(true);
 }]);
 
-function QuoteListCtrl($scope, $http, $location) {
+function BaseCtrl($scope, $http, $location, $routeParams) {
     $scope.loaded = false;
-    $scope.ctrl ="LIST";
     $scope.$location = $location;
+    $scope.$routeParams = $routeParams;
+    $scope.routes = {
+        View: function(id) { return "/quotes-ang/view/" + id; },
+        Add: function() { return "/quotes-ang/add/"; },
+        List: function() { return "/quotes-ang/list/"; },
+    };
+};
+BaseCtrl.$inject = ['$scope','$http','$location'];
+
+function QuoteListCtrl($scope, $http){
     $http.get('/quotes-ang/list.json').success(function(data) {
         $scope.quotes = data;
         $scope.loaded = true;
     });
 };
-QuoteListCtrl.$inject = ['$scope','$http','$location'];
+QuoteListCtrl.$inject = ['$scope','$http'];
 
 function QuoteViewCtrl($scope, $http, $routeParams) {
     $scope.loaded = false;
@@ -36,4 +48,9 @@ function QuoteViewCtrl($scope, $http, $routeParams) {
     });
 };
         
-QuoteViewCtrl.$inject = ['$scope','$http','$routeParams'];
+QuoteViewCtrl.$inject = ['$scope','$http', '$routeParams'];
+
+function QuoteAddCtrl($scope) {
+
+};
+QuoteAddCtrl.$inject = ['$scope'];

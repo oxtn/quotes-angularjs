@@ -12,13 +12,13 @@ from .models import (
     Quote,
     )
 
-@view_config(route_name='home', renderer='home.jinja2')
-def my_view(request):
-    try:
-        one = DBSession.query(Quote).filter(Quote.quote=='one').first()
-    except DBAPIError:
-        return Response(conn_err_msg, content_type='text/plain', status_int=500)
-    return {'one':one, 'project':'quotes'}
+#@view_config(route_name='home', renderer='home.jinja2')
+#def my_view(request):
+#    try:
+#        one = DBSession.query(Quote).filter(Quote.quote=='one').first()
+#    except DBAPIError:
+#        return Response(conn_err_msg, content_type='text/plain', status_int=500)
+#    return {'one':one, 'project':'quotes'}
     
 class QuoteSchema(Schema):
     filter_extra_fields = True
@@ -65,15 +65,14 @@ def view_json(request):
         return HTTPNotFound('Beep!')
     return dict(votes=quote.votes, quote=quote.quote)
     
-@view_config(route_name='list', renderer='list.jinja2')
+@view_config(route_name='list', renderer='list_bare.jinja2')
 def list(request):
-    quotes = DBSession.query(Quote)
-    return dict(quotes=quotes)
+    return dict()
 
 @view_config(route_name='list_json', renderer='json')
 def list_json(request):
     quotes = DBSession.query(Quote).all()
-    return [dict(view_url=request.route_url('view_json', id=quote.id, _app_url='http://oxtn.alwaysdata.net/quotes-ang'),
+    return [dict(id=quote.id,
                  quote=quote.quote) for quote in quotes]
 
 @view_config(route_name='template', renderer='index.jinja2')

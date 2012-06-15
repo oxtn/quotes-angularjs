@@ -26,7 +26,7 @@
  {% block head %}
  {% endblock %}
 </head>
-<body>
+<body ng-controller="BaseCtrl">
     <div class="navbar navbar-fixed-top">
       <div class="navbar-inner">
         <div class="container">
@@ -35,11 +35,11 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </a>
-          <a class="brand" href="{{ request.route_url('home') }}">Quotes</a>
+          <a class="brand" href="{{ request.route_url('template') }}">Quotes</a>
           <div class="nav-collapse">
             <ul class="nav">
-              <li><a href="{{ request.route_url('add') }}">Add</a></li>
-              <li><a href="{{ request.route_url('list') }}">List</a></li>
+              <li><a href="<[routes.Add()]>">Add</a></li>
+              <li><a href="<[routes.List()]>">List</a></li>
             </ul>
           </div><!--/.nav-collapse -->
         </div>
@@ -60,7 +60,7 @@
 <script>window.jQuery || document.write('<script src="{{ request.static_url('quotes_angularjs:static/js/libs/jquery-1.7.2.min.js') }}"><\/script>')</script>
 
 <script src="{{ request.static_url('quotes_angularjs:static/js/libs/bootstrap/bootstrap.min.js') }}"></script>
-<script src="{{ request.static_url('quotes_angularjs:static/js/libs/angular-1.0.0rc12.min.js') }}"></script>
+<script src="{{ request.static_url('quotes_angularjs:static/js/libs/angular-1.0.0.min.js') }}"></script>
 <script src="{{ request.static_url('quotes_angularjs:static/js/script.js') }}"></script>
 <script src="{{ request.static_url('quotes_angularjs:static/js/controllers.js') }}"></script>
 </body>
