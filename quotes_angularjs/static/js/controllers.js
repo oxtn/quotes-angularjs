@@ -5,7 +5,9 @@ angular.module('quotes', [], ['$routeProvider','$interpolateProvider', '$locatio
     var base_url = '/quotes-ang';    
 
     $routeProvider.
-        when(base_url+'/view/:id', { 
+        when(base_url+'/', {
+            templateUrl: base_url + '/home.tmpl'
+        }).when(base_url+'/view/:id', { 
             templateUrl: base_url + '/view.tmpl',
             controller: QuoteViewCtrl
        }).when(base_url+'/list', {
@@ -24,6 +26,7 @@ function BaseCtrl($scope, $http, $location, $routeParams) {
     $scope.$location = $location;
     $scope.$routeParams = $routeParams;
     $scope.routes = {
+        Home: function() { return "/quotes-ang/"; },
         View: function(id) { return "/quotes-ang/view/" + id; },
         Add: function() { return "/quotes-ang/add/"; },
         List: function() { return "/quotes-ang/list/"; },

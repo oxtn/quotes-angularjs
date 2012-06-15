@@ -12,14 +12,10 @@ from .models import (
     Quote,
     )
 
-#@view_config(route_name='home', renderer='home.jinja2')
-#def my_view(request):
-#    try:
-#        one = DBSession.query(Quote).filter(Quote.quote=='one').first()
-#    except DBAPIError:
-#        return Response(conn_err_msg, content_type='text/plain', status_int=500)
-#    return {'one':one, 'project':'quotes'}
-    
+@view_config(route_name='home', renderer='home.jinja2')
+def home(request):
+    return dict()
+        
 class QuoteSchema(Schema):
     filter_extra_fields = True
     allow_extra_fields = True
@@ -41,20 +37,9 @@ def add(request):
 
     return dict(renderer=FormRenderer(form), test=form.errors)
 
-#@view_config(route_name='view', renderer='view.jinja2')
-#def view(request):
-#    id = request.matchdict['id']
-    
-#    quote = DBSession.query(Quote).filter_by(id=id).first()
-#    if not quote:
-#        return HTTPNotFound('Beep!')
-        
-#    return dict(quote=quote)
-
-@view_config(route_name='view', renderer='view_bare.jinja2')
+@view_config(route_name='view', renderer='view.jinja2')
 def view(request):
     return dict()
-
     
 @view_config(route_name='view_json', renderer='json')
 def view_json(request):
@@ -65,7 +50,7 @@ def view_json(request):
         return HTTPNotFound('Beep!')
     return dict(votes=quote.votes, quote=quote.quote)
     
-@view_config(route_name='list', renderer='list_bare.jinja2')
+@view_config(route_name='list', renderer='list.jinja2')
 def list(request):
     return dict()
 
@@ -75,11 +60,10 @@ def list_json(request):
     return [dict(id=quote.id,
                  quote=quote.quote) for quote in quotes]
 
-@view_config(route_name='template', renderer='index.jinja2')
+@view_config(route_name='template', renderer='template.jinja2')
 def template(request):
     return {}
     
-
 
 @view_config(route_name='vote')
 def vote_post(request):

@@ -11,6 +11,7 @@ def main(global_config, **settings):
     config = Configurator(settings=settings)
     config.add_static_view('static', 'static', cache_max_age=3600)
     config.add_route('template','/')
+    config.add_route('home','/home.tmpl')
     config.add_route('add','/add.tmpl')
     config.add_route('view_json','view/{id}.json')
     config.add_route('view','/view.tmpl')

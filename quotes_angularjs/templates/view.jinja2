@@ -1,18 +1,4 @@
-{% extends "master.jinja2" %}
-{% block controller %}QuoteViewCtrl{% endblock %}
-{% block title %}View{% endblock %}
-{% block content %}
-<div>	
-	<strong>{{'+' if quote.votes >= 0 else '-'}}<[ data.votes ]></strong>
-    <form method="post" class="form-inline inline" action="{{ request.route_url('vote', id=quote.id, direction='up') }}">
- 		<input type="submit" value="+" class="btn btn-success btn-mini" /> /
-    </form>
-    <form method="post" class="form-inline inline" action="{{ request.route_url('vote', id=quote.id, direction='down') }}">
-   		<input type="submit" value="-" class="btn btn-danger btn-mini" />
-  	</form>	
-	<blockquote>
-		<p>{{ quote.quote | nl2br }}</p>
-		<small>Anonymous</small>
-	</blockquote>
-</div>
-{% endblock %}
+<blockquote>
+    <p><[ data.quote ]></p>
+    <small>Anonymous</small>
+</blockquote>
