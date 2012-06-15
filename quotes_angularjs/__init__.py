@@ -14,7 +14,7 @@ def main(global_config, **settings):
     config.add_route('template','/index.tmpl')
     config.add_route('add','/add')
     config.add_route('view_json','view/{id}.json')
-    config.add_route('view','/view/{id}')
+    config.add_route('view','/view.tmpl')
     config.add_route('list','/list')
     config.add_route('list_json','/list.json')
     config.add_route('vote','/vote/{id}/{direction}')

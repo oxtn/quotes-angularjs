@@ -40,16 +40,21 @@ def add(request):
         return HTTPFound(location=request.route_url('view',id=quote.id))
 
     return dict(renderer=FormRenderer(form), test=form.errors)
+
+#@view_config(route_name='view', renderer='view.jinja2')
+#def view(request):
+#    id = request.matchdict['id']
     
-@view_config(route_name='view', renderer='view.jinja2')
-def view(request):
-    id = request.matchdict['id']
-    
-    quote = DBSession.query(Quote).filter_by(id=id).first()
-    if not quote:
-        return HTTPNotFound('Beep!')
+#    quote = DBSession.query(Quote).filter_by(id=id).first()
+#    if not quote:
+#        return HTTPNotFound('Beep!')
         
-    return dict(quote=quote)
+#    return dict(quote=quote)
+
+@view_config(route_name='view', renderer='view_bare.jinja2')
+def view(request):
+    return dict()
+
     
 @view_config(route_name='view_json', renderer='json')
 def view_json(request):
@@ -68,7 +73,7 @@ def list(request):
 @view_config(route_name='list_json', renderer='json')
 def list_json(request):
     quotes = DBSession.query(Quote).all()
-    return [dict(view_url=request.route_url('view', id=quote.id, _app_url='http://oxtn.alwaysdata.net/quotes-ang'),
+    return [dict(view_url=request.route_url('view_json', id=quote.id, _app_url='http://oxtn.alwaysdata.net/quotes-ang'),
                  quote=quote.quote) for quote in quotes]
 
 @view_config(route_name='template', renderer='index.jinja2')
