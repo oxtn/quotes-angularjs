@@ -2,21 +2,19 @@ angular.module('quotes', [], ['$routeProvider','$interpolateProvider', '$locatio
     $interpolateProvider.startSymbol('<[');
     $interpolateProvider.endSymbol(']>');
     
-    var base_url = '/quotes-ang';    
-
     $routeProvider.
-        when(base_url+'/', {
-            templateUrl: base_url + '/home.tmpl'
-        }).when(base_url+'/view/:id', { 
-            templateUrl: base_url + '/view.tmpl',
+        when('/', {
+            templateUrl: 'home.tmpl'
+        }).when('/view/:id', { 
+            templateUrl: 'view.tmpl',
             controller: QuoteViewCtrl
-       }).when(base_url+'/list', {
-            templateUrl: base_url + '/list.tmpl',
+       }).when('/list', {
+            templateUrl: 'list.tmpl',
             controller: QuoteListCtrl
-       }).when(base_url+'/add', {
-            templateUrl: base_url + '/add.tmpl',
+       }).when('/add', {
+            templateUrl: 'add.tmpl',
             controller: QuoteAddCtrl
-       });
+       }); /*.otherwise({redirectTo:''});*/
               
        $locationProvider.html5Mode(true);
 }]);
@@ -26,16 +24,16 @@ function BaseCtrl($scope, $http, $location, $routeParams) {
     $scope.$location = $location;
     $scope.$routeParams = $routeParams;
     $scope.routes = {
-        Home: function() { return "/quotes-ang/"; },
-        View: function(id) { return "/quotes-ang/view/" + id; },
-        Add: function() { return "/quotes-ang/add/"; },
-        List: function() { return "/quotes-ang/list/"; },
+        Home: function() { return ""; },
+        View: function(id) { return "view/" + id; },
+        Add: function() { return "add/"; },
+        List: function() { return "list/"; },
     };
 };
 BaseCtrl.$inject = ['$scope','$http','$location'];
 
 function QuoteListCtrl($scope, $http){
-    $http.get('/quotes-ang/list.json').success(function(data) {
+    $http.get('list.json').success(function(data) {
         $scope.quotes = data;
         $scope.loaded = true;
     });
@@ -45,7 +43,7 @@ QuoteListCtrl.$inject = ['$scope','$http'];
 function QuoteViewCtrl($scope, $http, $routeParams) {
     $scope.loaded = false;
     $scope.ctrl = "VIEW";
-    $http.get('/quotes-ang/view/' + $routeParams.id + '.json').success(function(data) {
+    $http.get('view/' + $routeParams.id + '.json').success(function(data) {
         $scope.data = data;
         $scope.loaded = true;
     });
